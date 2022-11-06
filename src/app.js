@@ -57,7 +57,10 @@ app.post('/tweets', (req, res)=> {
         avatar: avatar,
         tweet: tweet
     }
-    tweets.push(newTweet)
+    tweets.unshift(newTweet)
+    if(tweets.length > 10){
+        tweets.length = 10
+    }
     res.send('OK')
 
 })
