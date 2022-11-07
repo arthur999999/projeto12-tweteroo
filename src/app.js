@@ -25,11 +25,11 @@ const tweets = [
 app.post('/sign-up', (req, res)=> {
     const {username, avatar} = req.body
     if ( !username || !avatar ){
-        res.status(422).send('preencha todos os dados')
+        res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
     if (usersList.find((m)=> m.username == username) != undefined){
-        res.status(422).send("nome de usuário já existente")
+        res.status(400).send("nome de usuário já existente")
         return
     }
     const useer = {
@@ -37,7 +37,7 @@ app.post('/sign-up', (req, res)=> {
         avatar: avatar
     }
     usersList.push(useer)
-    res.send('OK')
+    res.status(201).send('OK')
 
 })
 
@@ -48,7 +48,7 @@ app.get("/tweets", (req, res)=> {
 app.post('/tweets', (req, res)=> {
     const {username, tweet} = req.body
     if ( !username || !tweet ){
-        res.status(422).send('tweet vazio')
+        res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
     const avatar = usersList.find((m)=> m.username == username).avatar
@@ -61,7 +61,7 @@ app.post('/tweets', (req, res)=> {
     if(tweets.length > 10){
         tweets.length = 10
     }
-    res.send('OK')
+    res.status(201).send('OK')
 
 })
 
